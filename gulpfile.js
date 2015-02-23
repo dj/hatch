@@ -13,9 +13,10 @@ var bundler = watchify(browserify('./src/js/main.js', watchify.args));
 bundler.transform('brfs'); // implements node's fs.readFileSync for browserify
 
 // Tasks
+gulp.task('default', ['copy', 'js']);
+gulp.task('copy', copy);
 gulp.task('js', bundle); // so you can run `gulp js` to build the file
 bundler.on('update', bundle); // on any dep update, runs the bundler
-gulp.task('copy', copy);
 
 function bundle() {
   return bundler.bundle()
