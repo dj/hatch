@@ -1,10 +1,10 @@
-var $ = require('jquery');
 var fs = require('fs');
 var _ = require('underscore');
 var Backbone = require('backbone');
 var handlebars = require('handlebars');
 
 // Backbone assumes jQuery is in the global namespace
+var $ = require('jquery');
 Backbone.$ = $;
 
 // View for rendering a list of tweets

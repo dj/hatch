@@ -30,8 +30,9 @@ function bundle() {
 }
 
 function copy() {
-  gulp.src(['src/**/*.html', 'src/**/*.css', ])
-    .pipe(watch(['src/**/*.html', 'src/**/*.css']))
+  var files = ['src/**/*.html', 'src/**/*.css', 'src/**/semantic.min.js']
+  gulp.src(files)
+    .pipe(watch(files))
     .pipe(gulp.dest('build'));
 }
 
