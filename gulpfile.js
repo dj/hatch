@@ -7,13 +7,14 @@ var buffer = require('vinyl-buffer');
 var watchify = require('watchify');
 var browserify = require('browserify');
 var watch = require('gulp-watch');
+var less = require('gulp-less');
 
 // Browserify
 var bundler = watchify(browserify('./src/js/main.js', watchify.args));
 bundler.transform('brfs'); // implements node's fs.readFileSync for browserify
 
 // Tasks
-gulp.task('default', ['copy', 'js']);
+gulp.task('default', ['copy', 'less', 'js']);
 gulp.task('copy', copy);
 gulp.task('js', bundle); // so you can run `gulp js` to build the file
 bundler.on('update', bundle); // on any dep update, runs the bundler
@@ -28,6 +29,14 @@ function bundle() {
       // .pipe(sourcemaps.write({sourceRoot: 'src/'))
     .pipe(gulp.dest('./build'));
 }
+
+gulp.task('less', function () {
+  return gulp.src('src/less/custom-bootstrap.less')
+    .pipe(less({
+      paths: [ 'node_modules/bootstrap/less' ]
+    }))
+    .pipe(gulp.dest('./build/css'));
+});
 
 function copy() {
   gulp.src(['src/**/*.html', 'src/**/*.css', ])
