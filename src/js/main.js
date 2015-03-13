@@ -29,7 +29,7 @@ var Tweets = Backbone.Model.extend({
   url: '/search'
 });
 
-var HeaderView = Backbone.View.extend({
+var SearchFormView = Backbone.View.extend({
   initialize: function() {
     var self = this;
     this.user = new User();
@@ -43,16 +43,16 @@ var HeaderView = Backbone.View.extend({
     });
   },
 
-  el: $('#header_container'),
+  el: $('#search-form'),
 
   render: function(data) {
-    var template = _.template($("#header_template").html());
-    console.log(data);
-    this.$el.html( template(data) );
+    // var template = _.template($("#header_template").html());
+    // console.log(data);
+    // this.$el.html( template(data) );
   },
 
   events: {
-    "click #search": "search",
+    "submit": "search",
     "click button": "login"
   },
 
@@ -61,10 +61,13 @@ var HeaderView = Backbone.View.extend({
   },
 
   search: function( data ) {
-    var q = "q=" + $(".search").val();
+    var q = 'q=' + $('#query').val(),
+        lang = 'lang='  + $('#lang').val(),
+        result_type = 'result_type' + $('#result-type');
+
     var tweets = new Tweets();
     var search =  tweets.fetch({
-      data: q,
+      data: [q, lang].join('&'),
       success: function(data) {
         var resultsTableView = new ResultsTableView();
         resultsTableView.render(data.toJSON());
@@ -78,15 +81,7 @@ var ResultsTableView = Backbone.View.extend({
   el: $('#results_container'),
 
   initialize: function() {
-    // Bind the current context to the render method
-    // this.render();
-  },
-
-  defaultTweets: {
-    tweets: [
-      { user: {name:'@djhrtmn'}, text: 'lorem ipsum sit amet delor' },
-      { user: {name:'@djhrtmn'}, text: 'lorem ipsum sit amet delor' }
-    ]
+    this.render();
   },
 
   template: handlebars.compile(fs.readFileSync('src/templates/tweet.hbs', 'utf8')),
@@ -115,7 +110,7 @@ var Router = Backbone.Router.extend({
 var router = new Router();
 
 var resultsTableView = new ResultsTableView();
-var headerView = new HeaderView();
+var headerView = new SearchFormView();
 
 router.on('route:home', function() {
   headerView.render();
