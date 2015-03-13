@@ -8,23 +8,70 @@
     <link href="css/custom-bootstrap.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
   </head>
-  <body id='hatch-app'>
-    <h1>Hatch</h1>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Hatch</a>
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <form id="search-form">
+
+            <!-- Query -->
+            <div class="form-group">
+              <label for="query">Query</label>
+              <input type="text" class="form-control" id="query" placeholder="Search...">
+            </div>
+
+            <!-- Language -->
+            <div class="form-group">
+              <label for="lang">Language</label>
+              <select class="form-control" id="lang">
+                <option>en</option>
+                <option>es</option>
+                <option>jp</option>
+              </select>
+            </div>
+
+            <!-- Result Type -->
+            <div class="form-group">
+              <label for="result-type">Result Type</label>
+              <select class="form-control" id="result-type">
+                <option>Recent</option>
+                <option>Mixed</option>
+                <option>Popular</option>
+              </select>
+            </div>
+
+            <!-- Submit Form -->
+            <button type="submit" class="btn btn-default">Search</button>
+
+          </form>
+
+        <div id="header_container"></div>
+        </div>
+
+        <div class="col-md-9">
+          <div id="results_container"></div>
+        </div>
+    </div>
 
     <script type='text/template' id='header_template'>
       <% if (login) { %>
-        <%= user.username %>
         <input type='text' class='search'/>
         <input type='submit' id='search' value='search'></input>
+
+
       <% } else { %>
         <button type='submit' class='btn'>Login</button>
       <% } %>
     </script>
-
-    <div id="header_container"></div>
-    <div id="results_container"></div>
-
-
+    </div>
     <script src="js/bundle.js"></script>
   </body>
 </html>
