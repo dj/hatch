@@ -60,7 +60,8 @@ var SearchFormView = Backbone.View.extend({
     $(location).attr('href','http://localhost:8080/api/oauth');
   },
 
-  search: function( data ) {
+  search: function(e) {
+    e.preventDefault();
     var q = 'q=' + $('#query').val(),
         lang = 'lang='  + $('#lang').val(),
         result_type = 'result_type' + $('#result-type');
