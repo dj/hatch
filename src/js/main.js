@@ -13,6 +13,18 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR) {
 
 
 var User = Backbone.Model.extend({
+  initialize: function() {
+    this.currentUser = new User();
+    this.fetch({
+      success: function(user) {
+        console.log('success!!');
+      },
+      error: function(d) {
+        console.log('error!!');
+      }
+    });
+  },
+
   defaults: {
     username: '',
     id: ''
@@ -32,32 +44,24 @@ var Tweets = Backbone.Model.extend({
 var SearchFormView = Backbone.View.extend({
   initialize: function() {
     var self = this;
-    this.user = new User();
-    this.user.fetch({
-      success: function(user) {
-        self.render({user: user.toJSON(), login: true});
-      },
-      error: function(d) {
-        self.render({login: false});
-      }
-    });
+
   },
 
   el: $('#search-form'),
 
+  template: function() {
+    var templateFile = fs.readFileSync('src/templates/search-form.hbs');
+
+    return handlebars.compile(templateFile, 'utf8');
+  },
+
   render: function(data) {
-    // var template = _.template($("#header_template").html());
-    // console.log(data);
-    // this.$el.html( template(data) );
+    var html = this.template()
+    this.$el.append(html);
   },
 
   events: {
     "submit": "search",
-    "click button": "login"
-  },
-
-  login: function( event ) {
-    $(location).attr('href','http://localhost:8080/api/oauth');
   },
 
   search: function(e) {
@@ -77,45 +81,85 @@ var SearchFormView = Backbone.View.extend({
   }
 });
 
-// View for rendering a list of tweets
-var ResultsTableView = Backbone.View.extend({
-  el: $('#results_container'),
+// // View for rendering a list of tweets
+// var ResultsTableView = Backbone.View.extend({
+//   el: $('#results_container'),
 
+//   initialize: function() {
+//     this.render();
+//   },
+
+//   template: handlebars.compile(fs.readFileSync('src/templates/tweet.hbs', 'utf8')),
+
+//   render: function (data) {
+//     var tweets = [];
+//     _.each(data, function(k,v) {
+//       tweets.push(k);
+//     });
+//     var data = {
+//       tweets: tweets
+//     };
+//     var html = this.template(data);
+//     $(this.el).prepend(html);
+//     return this;
+//   }
+// });
+
+var LoginFormView = Backbone.View.extend({
   initialize: function() {
     this.render();
   },
+  el: $('#login-form-container'),
 
-  template: handlebars.compile(fs.readFileSync('src/templates/tweet.hbs', 'utf8')),
+  events: {
+    "submit": "login"
+  },
 
-  render: function (data) {
-    var tweets = [];
-    _.each(data, function(k,v) {
-      tweets.push(k);
-    });
-    var data = {
-      tweets: tweets
-    };
-    var html = this.template(data);
-    $(this.el).prepend(html);
+  template: function() {
+    var templateFile = fs.readFileSync('src/templates/login-form.hbs', 'utf8');
+
+    return handlebars.compile(templateFile);
+  },
+
+  login: function(e) {
+    e.preventDefault();
+    $(location).attr('href','http://localhost:8080/api/oauth');
+  },
+
+  render: function() {
+    var html = this.template();
+    this.$el.append(html);
     return this;
-  }
+  },
 });
-
 
 var Router = Backbone.Router.extend({
   routes: {
     '': 'home'
-  }
+  },
+
+  currentUser: null,
+
+  loginFormView: null,
+
+  initialize: function() {
+    if (this.currentUser) {
+      console.log('logged in')
+    } else {
+      console.log('not logged in')
+      this.loginFormView = new LoginFormView();
+    }
+
+    this.on('route:home', function() {
+      // headerView.render();
+    });
+  },
 });
 
 var router = new Router();
 
-var resultsTableView = new ResultsTableView();
-var headerView = new SearchFormView();
-
-router.on('route:home', function() {
-  headerView.render();
-});
+// var resultsTableView = new ResultsTableView();
+// var headerView = new SearchFormView();
 
 var app = {}
 
