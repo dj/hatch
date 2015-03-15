@@ -43,16 +43,14 @@ var Tweets = Backbone.Model.extend({
 
 var SearchFormView = Backbone.View.extend({
   initialize: function() {
-    var self = this;
-
+    this.render();
   },
 
-  el: $('#search-form'),
+  el: $('#search-form-container'),
 
   template: function() {
-    var templateFile = fs.readFileSync('src/templates/search-form.hbs');
-
-    return handlebars.compile(templateFile, 'utf8');
+    var templateFile = fs.readFileSync('src/templates/search-form.hbs', 'utf8');
+    return handlebars.compile(templateFile);
   },
 
   render: function(data) {
@@ -81,29 +79,37 @@ var SearchFormView = Backbone.View.extend({
   }
 });
 
-// // View for rendering a list of tweets
-// var ResultsTableView = Backbone.View.extend({
-//   el: $('#results_container'),
+// View for rendering a list of tweets
+var ResultsTableView = Backbone.View.extend({
+  el: $('#results-container'),
 
-//   initialize: function() {
-//     this.render();
-//   },
+  initialize: function() {
+    var self = this;
+    this.render();
+  },
 
-//   template: handlebars.compile(fs.readFileSync('src/templates/tweet.hbs', 'utf8')),
+  render: function (data) {
+    // var tweets = [];
+    // _.each(data, function(k,v) {
+    //   tweets.push(k);
+    // });
+    // var data = {
+    //   tweets: tweets
+    // };
 
-//   render: function (data) {
-//     var tweets = [];
-//     _.each(data, function(k,v) {
-//       tweets.push(k);
-//     });
-//     var data = {
-//       tweets: tweets
-//     };
-//     var html = this.template(data);
-//     $(this.el).prepend(html);
-//     return this;
-//   }
-// });
+    // Dummy data
+    var mockData = fs.readFileSync('src/js/search-response.json', 'utf8'),
+        response = JSON.parse(mockData);
+
+    var templateFile = fs.readFileSync('src/templates/tweet.hbs', 'utf8'),
+        template = handlebars.compile(templateFile);
+
+    var html = template({ statuses: response.statuses });
+    console.log(html);
+    this.$el.html(html);
+    return this;
+  }
+});
 
 var LoginFormView = Backbone.View.extend({
   initialize: function() {
@@ -138,20 +144,13 @@ var Router = Backbone.Router.extend({
     '': 'home'
   },
 
-  currentUser: null,
-
-  loginFormView: null,
+  searchFormView: null,
+  resultsTableView: null,
 
   initialize: function() {
-    if (this.currentUser) {
-      console.log('logged in')
-    } else {
-      console.log('not logged in')
-      this.loginFormView = new LoginFormView();
-    }
-
     this.on('route:home', function() {
-      // headerView.render();
+      this.searchFormView = new SearchFormView();
+      this.resultsTableView = new ResultsTableView();
     });
   },
 });
