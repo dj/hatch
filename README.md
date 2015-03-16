@@ -57,3 +57,13 @@ location /api/ {
 ## TODO
   + get sourcemaps working for sensible debugging
   + make gulp log something useful when it successfully builds
+
+
+##Testing
+  
+###automated
+Tests will be automated using mocha.js and chai.js
+
+###UAT
+User acceptance critera is availible in test/UAT.txt
+

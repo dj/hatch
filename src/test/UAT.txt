@@ -1,0 +1,15 @@
+Criteria for User Acceptance Testing
+----------
+MVP-First Iteration
++User is able to log into application with their twitter account
++User is able to Query by key terms
++User is able to refine Query by language
++User is able to refine Query by result type
++User is able to refine Query by from-to date
++User is able to view results of query in formatted table on web application
++User is able to download results as a CSV
+
+
+
+
+ 

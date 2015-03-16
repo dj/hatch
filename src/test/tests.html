@@ -1,0 +1,20 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Client Testing for Hatch Application</title>
+  <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.2.1/mocha.css">
+</head>
+<body>
+  <div id="mocha"><p><a href=".">Index</a></p></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.2.1/mocha.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.1.1/chai.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="hellomocha.js"></script>
+  <script>mocha.run(); mocha.checkLeaks();
+          mocha.globals(['jquery']);</script>
+</body>
+</html>
+
