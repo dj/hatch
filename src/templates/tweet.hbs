@@ -1,21 +1,33 @@
- <table class="table table-bordered">
- <tr class="active">
-  <th>User</th>
-  <th>Handle</th>
-  <th>Status</th>
-  <th>Created at</th>
-  <th>Retweets</th>
-  <th>Favourites</th>
-</tr>
- {{#each statuses}}  
- <tr>
-    <td>{{user.name}}</td>
-    <td> {{user.screen_name}}</td>
-    <td> {{text}}</td>
-    <td>{{created_at}}</td>
-    <td>{{retweet_count}}</td>
-    <td>{{user.favourites_count}}</td>
+<h1>Search Results</h1>
+
+<!-- DOWNLOAD CSV -->
+<form>
+  <div class="form-group">
+    <a id='download' href={{href}} class="btn btn-success"> Export Results to CSV </a>
+
+    <!-- <button type="submit" class="btn btn-success">Download CSV</button> -->
+  </div>
+</form>
+
+<!-- RESULTS TABLE -->
+<table class="table table-bordered">
+  <tr class="active">
+    <th>User</th>
+    <th>Handle</th>
+    <th>Status</th>
+    <th>Created at</th>
+    <th>Retweets</th>
+    <th>Favourites</th>
   </tr>
-{{/each}}
+  {{#each statuses}}
+    <tr>
+      <td>{{user.name}}</td>
+      <td> {{user.screen_name}}</td>
+      <td> {{text}}</td>
+      <td>{{created_at}}</td>
+      <td>{{retweet_count}}</td>
+      <td>{{user.favourites_count}}</td>
+    </tr>
+  {{/each}}
 </table>
 
