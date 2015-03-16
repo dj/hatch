@@ -32,13 +32,17 @@ module.exports = Backbone.View.extend({
 
   search: function(e) {
     e.preventDefault();
-    var q = 'q=' + $('#query').val(),
-        lang = 'lang='  + $('#lang').val(),
-        result_type = 'result_type=' + $('#result-type').val();
+    // TODO: clean up to prevent zombie views
+    $('#results-container').empty();
+
+    var q           = 'q=' + $('#query').val(),
+        lang        = 'lang='  + $('#lang').val(),
+        result_type = 'result_type=' + $('#result-type').val(),
+        until       = 'until=' + $('#until').val();
 
     var search = new SearchModel();
     search.fetch({
-      data: [q, lang, result_type].join('&'),
+      data: [q, lang, result_type, until].join('&'),
       success: function(data) {
         var ResultsTable = new ResultsTableView();
         ResultsTable.render(data.toJSON());
