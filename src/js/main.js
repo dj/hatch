@@ -13,6 +13,18 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR) {
 
 
 var User = Backbone.Model.extend({
+  initialize: function() {
+    this.currentUser = new User();
+    this.fetch({
+      success: function(user) {
+        console.log('success!!');
+      },
+      error: function(d) {
+        console.log('error!!');
+      }
+    });
+  },
+
   defaults: {
     username: '',
     id: ''
@@ -31,36 +43,27 @@ var Tweets = Backbone.Model.extend({
 
 var SearchFormView = Backbone.View.extend({
   initialize: function() {
-    var self = this;
-    this.user = new User();
-    this.user.fetch({
-      success: function(user) {
-        self.render({user: user.toJSON(), login: true});
-      },
-      error: function(d) {
-        self.render({login: false});
-      }
-    });
+    this.render();
   },
 
-  el: $('#search-form'),
+  el: $('#search-form-container'),
+
+  template: function() {
+    var templateFile = fs.readFileSync('src/templates/search-form.hbs', 'utf8');
+    return handlebars.compile(templateFile);
+  },
 
   render: function(data) {
-    // var template = _.template($("#header_template").html());
-    // console.log(data);
-    // this.$el.html( template(data) );
+    var html = this.template()
+    this.$el.append(html);
   },
 
   events: {
     "submit": "search",
-    "click button": "login"
   },
 
-  login: function( event ) {
-    $(location).attr('href','http://localhost:8080/api/oauth');
-  },
-
-  search: function( data ) {
+  search: function(e) {
+    e.preventDefault();
     var q = 'q=' + $('#query').val(),
         lang = 'lang='  + $('#lang').val(),
         result_type = 'result_type' + $('#result-type');
@@ -78,43 +81,84 @@ var SearchFormView = Backbone.View.extend({
 
 // View for rendering a list of tweets
 var ResultsTableView = Backbone.View.extend({
-  el: $('#results_container'),
+  el: $('#results-container'),
 
   initialize: function() {
+    var self = this;
     this.render();
   },
 
-  template: handlebars.compile(fs.readFileSync('src/templates/tweet.hbs', 'utf8')),
-
   render: function (data) {
-    var tweets = [];
-    _.each(data, function(k,v) {
-      tweets.push(k);
-    });
-    var data = {
-      tweets: tweets
-    };
-    var html = this.template(data);
-    $(this.el).prepend(html);
+    // var tweets = [];
+    // _.each(data, function(k,v) {
+    //   tweets.push(k);
+    // });
+    // var data = {
+    //   tweets: tweets
+    // };
+
+    // Dummy data
+    var mockData = fs.readFileSync('src/js/search-response.json', 'utf8'),
+        response = JSON.parse(mockData);
+
+    var templateFile = fs.readFileSync('src/templates/tweet.hbs', 'utf8'),
+        template = handlebars.compile(templateFile);
+
+    var html = template({ statuses: response.statuses });
+    console.log(html);
+    this.$el.html(html);
     return this;
   }
 });
 
+var LoginFormView = Backbone.View.extend({
+  initialize: function() {
+    this.render();
+  },
+  el: $('#login-form-container'),
+
+  events: {
+    "submit": "login"
+  },
+
+  template: function() {
+    var templateFile = fs.readFileSync('src/templates/login-form.hbs', 'utf8');
+
+    return handlebars.compile(templateFile);
+  },
+
+  login: function(e) {
+    e.preventDefault();
+    $(location).attr('href','http://localhost:8080/api/oauth');
+  },
+
+  render: function() {
+    var html = this.template();
+    this.$el.append(html);
+    return this;
+  },
+});
 
 var Router = Backbone.Router.extend({
   routes: {
     '': 'home'
-  }
+  },
+
+  searchFormView: null,
+  resultsTableView: null,
+
+  initialize: function() {
+    this.on('route:home', function() {
+      this.searchFormView = new SearchFormView();
+      this.resultsTableView = new ResultsTableView();
+    });
+  },
 });
 
 var router = new Router();
 
-var resultsTableView = new ResultsTableView();
-var headerView = new SearchFormView();
-
-router.on('route:home', function() {
-  headerView.render();
-});
+// var resultsTableView = new ResultsTableView();
+// var headerView = new SearchFormView();
 
 var app = {}
 

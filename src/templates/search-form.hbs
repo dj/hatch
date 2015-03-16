@@ -1,0 +1,42 @@
+<form id="search-form">
+
+  <!-- QUERY -->
+  <div class="form-group">
+    <label for="query">Query</label>
+    <input type="text" class="form-control" id="query" placeholder="Search...">
+  </div>
+
+  <!-- LANGUAGE -->
+  <!-- TODO: populate with complete list of languages -->
+  <div class="form-group">
+    <label for="lang">Language</label>
+    <select class="form-control" id="lang">
+      <option>en</option>
+      <option>es</option>
+      <option>jp</option>
+    </select>
+  </div>
+
+  <!-- RESULT TYPE -->
+  <div class="form-group">
+    <label for="result-type">Result Type</label>
+    <select class="form-control" id="result-type">
+      <option>Recent</option>
+      <option>Mixed</option>
+      <option>Popular</option>
+    </select>
+  </div>
+
+  <!--DATEPICKER -->
+  <div class="input-daterange">
+    <label for="date-picker">Date Range</label>
+    <span class="add-on">From</span>
+    <input type="date" class="input-small" placeholder="YYYY-MM-DD" />
+    <span class="add-on">to</span>
+    <input type="date" class="input-small" value="YYYY-MM-DD" />
+  </div>
+
+  <!-- SUBMIT FORM -->
+  <button type="submit" class="btn btn-default">Search Twitter</button>
+
+</form>

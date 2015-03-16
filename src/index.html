@@ -9,69 +9,47 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
+
+    <!-- HEADER -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Hatch</a>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </nav>
 
+    <!-- PAGE CONTENT -->
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
-          <form id="search-form">
 
-            <!-- Query -->
-            <div class="form-group">
-              <label for="query">Query</label>
-              <input type="text" class="form-control" id="query" placeholder="Search...">
-            </div>
+        <!-- LEFT COLUMN: SEARCH -->
+        <div id="search-form-container" class="col-md-3">
 
-            <!-- Language -->
-            <div class="form-group">
-              <label for="lang">Language</label>
-              <select class="form-control" id="lang">
-                <option>en</option>
-                <option>es</option>
-                <option>jp</option>
-              </select>
-            </div>
+          <div id="login-form-container"></div>
 
-            <!-- Result Type -->
-            <div class="form-group">
-              <label for="result-type">Result Type</label>
-              <select class="form-control" id="result-type">
-                <option>Recent</option>
-                <option>Mixed</option>
-                <option>Popular</option>
-              </select>
-            </div>
+          <div id="header_container"></div>
 
-            <!-- Submit Form -->
-            <button type="submit" class="btn btn-default">Search</button>
-
-          </form>
-
-        <div id="header_container"></div>
         </div>
 
-        <div class="col-md-9">
-          <div id="results_container"></div>
+        <!-- RIGHT COLUMN: RESULTS -->
+        <div id="results-container" class="col-md-9">
         </div>
-    </div>
 
-    <script type='text/template' id='header_template'>
-      <% if (login) { %>
-        <input type='text' class='search'/>
-        <input type='submit' id='search' value='search'></input>
+      </div><!-- /.row -->
+
+      <script type='text/template' id='header_template'>
+        <% if (login) { %>
+          <input type='text' class='search'/>
+          <input type='submit' id='search' value='search'></input>
 
 
-      <% } else { %>
-        <button type='submit' class='btn'>Login</button>
-      <% } %>
-    </script>
-    </div>
+        <% } else { %>
+          <button type='submit' class='btn'>Login</button>
+        <% } %>
+      </script>
+    </div><!-- /.container -->
+
     <script src="js/bundle.js"></script>
   </body>
 </html>

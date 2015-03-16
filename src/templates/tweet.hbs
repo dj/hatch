@@ -1,6 +1,21 @@
-{{#each tweets}}
-  <tr>
+ <table class="table table-bordered">
+ <tr class="active">
+  <th>User</th>
+  <th>Handle</th>
+  <th>Status</th>
+  <th>Created at</th>
+  <th>Retweets</th>
+  <th>Favourites</th>
+</tr>
+ {{#each statuses}}  
+ <tr>
     <td>{{user.name}}</td>
-    <td>{{text}}</td>
+    <td> {{user.screen_name}}</td>
+    <td> {{text}}</td>
+    <td>{{created_at}}</td>
+    <td>{{retweet_count}}</td>
+    <td>{{user.favourites_count}}</td>
   </tr>
 {{/each}}
+</table>
+
