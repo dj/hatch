@@ -14,30 +14,21 @@ module.exports = Backbone.View.extend({
     this.render();
   },
 
-  // events: {
-  //   'click #download': 'downloadCSV'
-  // },
-
-  // downloadCSV: function(e) {
-  //   e.preventDefault();
-  // },
-
-  render: function (data) {
+ render: function (queryString, data) {
     var tweets = [];
     _.each(data, function(k,v) {
       tweets.push(k);
     });
 
-    this.data = tweets;
-
     var templateFile = fs.readFileSync('src/templates/tweet.hbs', 'utf8'),
         template = handlebars.compile(templateFile);
 
-    var csvData = parser.unparse(this.data);
+    var csvData = parser.unparse(tweets);
     var href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
 
     var html = template({
-      statuses: this.data,
+      queryString: queryString,
+      statuses: tweets,
       href: href,
     });
 

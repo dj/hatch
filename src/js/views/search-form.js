@@ -35,17 +35,31 @@ module.exports = Backbone.View.extend({
     // TODO: clean up to prevent zombie views
     $('#results-container').empty();
 
-    var q           = 'q=' + $('#query').val(),
-        lang        = 'lang='  + $('#lang').val(),
-        result_type = 'result_type=' + $('#result-type').val(),
-        until       = 'until=' + $('#until').val();
+    var params = [
+      { string: 'q=', val: $('#query').val() },
+      { string: 'lang=', val: $('#lang').val() },
+      { string: 'result_type=', val: $('#result_type').val() },
+      { string: 'until=', val: $('#until').val() }
+    ]
+
+    // Reject empty parameters
+    var queryString = _.chain(params)
+      .filter(function(param) { return param.val })
+      .map(function(param) { return param.string + encodeURIComponent(param.val) })
+      .map(_.escape)
+      .value()
+      .join('&');
+
+    console.log('queryString:')
+    console.log(queryString)
 
     var search = new SearchModel();
     search.fetch({
-      data: [q, lang, result_type, until].join('&'),
+      time: new Date().getTime(),
+      data: queryString,
       success: function(data) {
         var ResultsTable = new ResultsTableView();
-        ResultsTable.render(data.toJSON());
+        ResultsTable.render(queryString, data.toJSON());
       }
     });
   }

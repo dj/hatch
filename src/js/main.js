@@ -1,4 +1,5 @@
-var $ = require('jquery');
+var $ = window.jQuery = require('jquery');
+require('bootstrap')
 var _ = require('underscore');
 var Backbone = require('backbone');
 var fs = require('fs');

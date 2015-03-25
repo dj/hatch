@@ -1,15 +1,20 @@
-<h1>Search Results</h1>
-
+<h1>Results</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">Search Metadata</div>
+  <div class="panel-body">
+    <label>Query String</label>
+    <p>{{queryString}}</p>
+  </div>
+</div>
 <!-- DOWNLOAD CSV -->
 <form>
   <div class="form-group">
     <a id='download' href={{href}} class="btn btn-success"> Export Results to CSV </a>
-
-    <!-- <button type="submit" class="btn btn-success">Download CSV</button> -->
   </div>
 </form>
 
 <!-- RESULTS TABLE -->
+<h2>CSV Preview</h2>
 <table class="table table-bordered">
   <tr class="active">
     <th>User</th>
