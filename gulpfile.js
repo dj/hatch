@@ -39,8 +39,8 @@ gulp.task('less', function () {
 });
 
 function copy() {
-  gulp.src(['src/**/*.html', 'src/**/*.css', ])
-    .pipe(watch(['src/**/*.html', 'src/**/*.css']))
+  gulp.src(['src/**/*.html', 'src/i**/*.png', 'src/**/*.less' ])
+    .pipe(watch(['src/**/*.html', 'src/**/*.less', 'src/**/*.png']))
     .pipe(gulp.dest('build'));
 }
 
