@@ -1,12 +1,6 @@
-var $ = window.jQuery = require('jquery');
 require('bootstrap')
-var _ = require('underscore');
-var Backbone = require('backbone');
 var fs = require('fs');
 var handlebars = require('handlebars');
-
-// Backbone assumes jQuery is in the global namespace
-Backbone.$ = $;
 
 // TODO: Stop hardcoding host, configure dev/staging/prod host with gulp
 $.ajaxPrefilter(function( options, originalOptions, jqXHR) {

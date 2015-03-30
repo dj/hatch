@@ -14,9 +14,10 @@ var bundler = watchify(browserify('./src/js/main.js', watchify.args));
 bundler.transform('brfs'); // implements node's fs.readFileSync for browserify
 
 // Tasks
-gulp.task('default', ['copy', 'less', 'js']);
-gulp.task('copy', copy);
+gulp.task('default', ['copy', 'less', 'vendor', 'js']);
+gulp.task('copy', copyFiles);
 gulp.task('js', bundle); // so you can run `gulp js` to build the file
+gulp.task('vendor', copyVendoredLibs);
 bundler.on('update', bundle); // on any dep update, runs the bundler
 
 function bundle() {
@@ -38,9 +39,22 @@ gulp.task('less', function () {
     .pipe(gulp.dest('./build/css'));
 });
 
-function copy() {
-  gulp.src(['src/**/*.html', 'src/i**/*.png', 'src/**/*.less' ])
-    .pipe(watch(['src/**/*.html', 'src/**/*.less', 'src/**/*.png']))
+function copyFiles() {
+  var files = [
+    'src/**/*.html',
+    'src/**/*.png'
+  ]
+
+  gulp.src(files)
+    .pipe(watch(files))
     .pipe(gulp.dest('build'));
+}
+
+function copyVendoredLibs() {
+  var libs = 'src/js/vendor/**/*';
+
+  gulp.src(libs)
+    .pipe(watch(libs))
+    .pipe(gulp.dest('build/js/vendor'));
 }
 

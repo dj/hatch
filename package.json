@@ -4,7 +4,6 @@
   "description": "Hatch - Client",
   "dependencies": {
     "babyparse": "^0.4.1",
-    "backbone": "^1.1.2",
     "handlebars": "^3.0.0",
     "underscore": "^1.8.2",
     "watchify": "^2.4.0"
@@ -27,7 +26,8 @@
     "transform": [ "browserify-shim" ]
   },
   "browserify-shim": {
-    "src/js/vendor/jquery-2.1.3.js": "$",
-    "src/js/vendor/validator.js":  { "depends": [ "src/js/vendor/jquery-2.1.3.js" ] }
+    "jquery": "global:$",
+    "backbone": "global:Backbone",
+    "lodash": "global:_"
   }
 }

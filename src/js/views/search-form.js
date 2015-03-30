@@ -1,10 +1,5 @@
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
 var fs = require('fs');
 var handlebars = require('handlebars');
-
-Backbone.$ = $;
 
 var SearchModel = require('../models/search.js');
 var ResultsTableView = require('./results-table.js');
@@ -24,6 +19,7 @@ module.exports = Backbone.View.extend({
   render: function(data) {
     var html = this.template()
     this.$el.append(html);
+    this.search();
   },
 
   events: {
@@ -31,12 +27,19 @@ module.exports = Backbone.View.extend({
   },
 
   search: function(e) {
-    e.preventDefault();
+    // e.preventDefault();
     // TODO: clean up to prevent zombie views
     $('#results-container').empty();
 
-    var params = [
-      { string: 'q=', val: $('#query').val() },
+   // var params = [
+    //   { string: 'q=', val: $('#query').val() },
+    //   { string: 'lang=', val: $('#lang').val() },
+    //   { string: 'result_type=', val: $('#result_type').val() },
+    //   { string: 'until=', val: $('#until').val() }
+    // ]
+
+   var params = [
+      { string: 'q=', val: '#TheDailyShow' },
       { string: 'lang=', val: $('#lang').val() },
       { string: 'result_type=', val: $('#result_type').val() },
       { string: 'until=', val: $('#until').val() }
