@@ -5,7 +5,6 @@
   "dependencies": {
     "babyparse": "^0.4.1",
     "handlebars": "^3.0.0",
-    "underscore": "^1.8.2",
     "watchify": "^2.4.0"
   },
   "devDependencies": {
