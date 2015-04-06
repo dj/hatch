@@ -8,16 +8,19 @@ var watchify = require('watchify');
 var browserify = require('browserify');
 var watch = require('gulp-watch');
 var less = require('gulp-less');
+var path = require('path');
 
 // Browserify
 var bundler = watchify(browserify('./src/js/main.js', watchify.args));
 bundler.transform('brfs'); // implements node's fs.readFileSync for browserify
 
 // Tasks
-gulp.task('default', ['copy', 'less', 'vendor', 'js']);
+gulp.task('default', ['copy', 'vendor', 'fonts', 'less', 'less-watch', 'js']);
+gulp.task('js', bundle);
 gulp.task('copy', copyFiles);
-gulp.task('js', bundle); // so you can run `gulp js` to build the file
+gulp.task('fonts', copyFonts);
 gulp.task('vendor', copyVendoredLibs);
+
 bundler.on('update', bundle); // on any dep update, runs the bundler
 
 function bundle() {
@@ -31,12 +34,18 @@ function bundle() {
     .pipe(gulp.dest('./build'));
 }
 
-gulp.task('less', function () {
-  return gulp.src('src/less/custom-bootstrap.less')
+gulp.task('less', function() {
+  return gulp.src('./src/less/**/*.less')
     .pipe(less({
-      paths: [ 'node_modules/bootstrap/less' ]
+      paths: [
+        'node_modules/bootstrap/less'
+      ]
     }))
     .pipe(gulp.dest('./build/css'));
+})
+
+gulp.task('less-watch', ['less'], function() {
+  gulp.watch('./src/less/*.less', ['less']);
 });
 
 function copyFiles() {
@@ -56,5 +65,13 @@ function copyVendoredLibs() {
   gulp.src(libs)
     .pipe(watch(libs))
     .pipe(gulp.dest('build/js/vendor'));
+}
+
+function copyFonts() {
+  var fonts = 'src/fonts/**/*';
+
+  gulp.src(fonts)
+    .pipe(watch(fonts))
+    .pipe(gulp.dest('build/fonts'));
 }
 
