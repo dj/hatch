@@ -1,6 +1,42 @@
-.twitter-sign-in-btn {
-  width: 158px;
-  height: 28px;
-  border: none;
-  background: url(../img/sign-in-with-twitter-gray.png);
+@import "custom-variables.less";
+
+// Navbar
+.navbar {
+  border-bottom: 5px solid @navbar-inverse-border;
+  margin-bottom: 0;
+}
+
+// Login Page
+.twitter-tweet-container {
+  display: inline-block;
+  padding: 9px;
+  margin: 5px 0;
+  max-width: 460px;
+  border: #ddd 1px solid;
+  border-top-color: #eee;
+  border-bottom-color: #bbb;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  font-size: 12px;
+  color: #000;
+}
+
+
+// Tweet Styles
+
+.twitter-tweet-container img {
+  float: left;
+  border-radius: 5px;
+}
+
+.twitter-tweet {
+  margin-left: 60px;
+}
+
+.twitter-tweet a.date {
+  float: right;
+}
+
+.twitter-tweet span.user-name {
+  font-weight: bold;
 }
