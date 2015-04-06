@@ -20,18 +20,22 @@ module.exports = Backbone.View.extend({
     '#YOLO', '#FOMO', '#EVOO'
   ],
 
+  template: function(data) {
+    var templateFile = fs.readFileSync('src/templates/results-table.hbs', 'utf8'),
+        template = handlebars.compile(templateFile);
+
+    return template(data);
+  },
+
   render: function (queryString, data) {
     var tweets = _.map(data, function(tweet){
       return tweet;
     });
 
-    var templateFile = fs.readFileSync('src/templates/results-table.hbs', 'utf8'),
-        template = handlebars.compile(templateFile);
-
     var csvData = parser.unparse(tweets);
     var href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
 
-    var html = template({
+    var html = this.template({
       queryString: queryString,
       hashtags: this.mockHashtags,
       urls: this.mockUrls,
