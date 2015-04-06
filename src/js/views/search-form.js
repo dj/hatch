@@ -19,27 +19,19 @@ module.exports = Backbone.View.extend({
   render: function(data) {
     var html = this.template()
     this.$el.append(html);
-    this.search();
   },
 
   events: {
-    "submit": "search",
+    "submit form": "search",
   },
 
   search: function(e) {
-    // e.preventDefault();
+    e.preventDefault();
     // TODO: clean up to prevent zombie views
     $('#results-container').empty();
 
-   // var params = [
-    //   { string: 'q=', val: $('#query').val() },
-    //   { string: 'lang=', val: $('#lang').val() },
-    //   { string: 'result_type=', val: $('#result_type').val() },
-    //   { string: 'until=', val: $('#until').val() }
-    // ]
-
-   var params = [
-      { string: 'q=', val: '#TheDailyShow' },
+    var params = [
+      { string: 'q=', val: $('#query').val() },
       { string: 'lang=', val: $('#lang').val() },
       { string: 'result_type=', val: $('#result_type').val() },
       { string: 'until=', val: $('#until').val() }
@@ -52,9 +44,6 @@ module.exports = Backbone.View.extend({
       .map(_.escape)
       .value()
       .join('&');
-
-    console.log('queryString:')
-    console.log(queryString)
 
     var search = new SearchModel();
     search.fetch({
