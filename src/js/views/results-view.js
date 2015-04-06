@@ -21,25 +21,21 @@ module.exports = Backbone.View.extend({
   ],
 
   template: function(data) {
-    var templateFile = fs.readFileSync('src/templates/results-table.hbs', 'utf8'),
+    var templateFile = fs.readFileSync('src/templates/results-view.hbs', 'utf8'),
         template = handlebars.compile(templateFile);
 
     return template(data);
   },
 
   render: function (queryString, data) {
-    var tweets = _.map(data, function(tweet){
-      return tweet;
-    });
-
-    var csvData = parser.unparse(tweets);
+    var csvData = parser.unparse(_.map(data));
     var href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
 
     var html = this.template({
       queryString: queryString,
       hashtags: this.mockHashtags,
       urls: this.mockUrls,
-      statuses: tweets,
+      statuses: data,
       href: href,
     });
 

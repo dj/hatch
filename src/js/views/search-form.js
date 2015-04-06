@@ -2,7 +2,7 @@ var fs = require('fs');
 var handlebars = require('handlebars');
 
 var SearchModel = require('../models/search.js');
-var ResultsTableView = require('./results-table.js');
+var ResultsView = require('./results-view.js');
 
 module.exports = Backbone.View.extend({
   initialize: function() {
@@ -40,20 +40,22 @@ module.exports = Backbone.View.extend({
     // Reject empty parameters
     var queryString = _.chain(params)
       .filter(function(param) { return param.val })
+      // URI encode values
       .map(function(param) { return param.string + encodeURIComponent(param.val) })
       .map(_.escape)
       .value()
       .join('&');
 
     var search = new SearchModel();
+
     search.fetch({
-      time: new Date().getTime(),
       data: queryString,
       success: function(data) {
-        var ResultsTable = new ResultsTableView();
-        ResultsTable.render(queryString, data.toJSON());
+        var Results = new ResultsView();
+        Results.render(queryString, data.toJSON());
       }
     });
+
   }
 });
 
