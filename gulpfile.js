@@ -18,6 +18,7 @@ gulp.task('default', ['copy', 'less', 'js']);
 gulp.task('copy', copy);
 gulp.task('js', bundle); // so you can run `gulp js` to build the file
 bundler.on('update', bundle); // on any dep update, runs the bundler
+gulp.task('build', ['less', 'js'], build);
 
 function bundle() {
   return bundler.bundle()
@@ -42,5 +43,13 @@ function copy() {
   gulp.src(['src/**/*.html', 'src/i**/*.png', 'src/**/*.less' ])
     .pipe(watch(['src/**/*.html', 'src/**/*.less', 'src/**/*.png']))
     .pipe(gulp.dest('build'));
+}
+
+function build() {
+  gulp.src(['src/**/*.html', 'src/i**/*.png', 'src/**/*.less' ])
+    .pipe(gulp.dest('build'))
+    .once('end', function () {
+      process.exit();
+    });
 }
 
