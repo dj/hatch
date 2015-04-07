@@ -1,10 +1,10 @@
-<form id="search-form">
-  <h2>Search Twitter</h2>
+<form id="search-form" data-toggle="validator">
+  <h3><span class="glyphicon glyphicon-search"></span> Search</h3>
 
   <!-- QUERY -->
   <div class="form-group">
     <label for="query">Query</label>
-    <input type="text" class="form-control" id="query" placeholder="Search...">
+    <input type="text" class="form-control" id="query" placeholder="Search..." required>
   </div>
 
   <!-- LANGUAGE -->
@@ -39,6 +39,6 @@
   </div>
 
   <!-- SUBMIT FORM -->
-  <button type="submit" class="btn btn-info">Search Twitter</button>
+  <button type="submit" class="btn btn-primary">Search Twitter</button>
 
 </form>

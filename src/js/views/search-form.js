@@ -1,13 +1,8 @@
-var $ = require('jquery');
-var _ = require('underscore');
-var Backbone = require('backbone');
 var fs = require('fs');
 var handlebars = require('handlebars');
 
-Backbone.$ = $;
-
 var SearchModel = require('../models/search.js');
-var ResultsTableView = require('./results-table.js');
+var ResultsView = require('./results-view.js');
 
 module.exports = Backbone.View.extend({
   initialize: function() {
@@ -27,7 +22,7 @@ module.exports = Backbone.View.extend({
   },
 
   events: {
-    "submit": "search",
+    "submit form": "search",
   },
 
   search: function(e) {
@@ -35,6 +30,9 @@ module.exports = Backbone.View.extend({
     // TODO: clean up to prevent zombie views
     $('#results-container').empty();
 
+    // A list of pairs of
+    // string: a url query parameter + "="
+    // val: the value from the matching form input
     var params = [
       { string: 'q=', val: $('#query').val() },
       { string: 'lang=', val: $('#lang').val() },
@@ -42,25 +40,17 @@ module.exports = Backbone.View.extend({
       { string: 'until=', val: $('#until').val() }
     ]
 
-    // Reject empty parameters
+    // Returns a query string from the list of params
     var queryString = _.chain(params)
       .filter(function(param) { return param.val })
+      // URI encode values
       .map(function(param) { return param.string + encodeURIComponent(param.val) })
       .map(_.escape)
       .value()
       .join('&');
 
-    console.log('queryString:')
-    console.log(queryString)
-
-    var search = new SearchModel();
-    search.fetch({
-      time: new Date().getTime(),
-      data: queryString,
-      success: function(data) {
-        var ResultsTable = new ResultsTableView();
-        ResultsTable.render(queryString, data.toJSON());
-      }
+    var results = new ResultsView({
+      queryString: queryString
     });
   }
 });

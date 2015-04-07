@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3>
+      <span class="glyphicon glyphicon-list"></span>
+      <span>{{statuses.length}} Tweets</span>
+      <a href={{href}} class='btn btn-success pull-right'>
+        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Save CSV
+      </a>
+    </h3>
+    <p>Showing {{statuses.length}} results for <a href="#">{{queryString}}</a></p>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+
+    <div class="btn-group">
+      <label>Results View</label>
+      <select>
+        <option>Tweets</option>
+        <option>Table</option>
+      </select>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+
+    <div class="btn-group">
+      <label>Sort by</label>
+      <select>
+        <option>Date</option>
+        <option>RTs</option>
+        <option>Favs</option>
+        <option>Username</option>
+      </select>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    {{#each statuses}}
+      <div class="twitter-tweet-container">
+
+        <img src={{user.profile_image_url}} />
+
+        <div class="twitter-tweet">
+          <p>
+
+            <span class="user-name">{{user.name}}</span> <a href="https://twitter.com/{{@user.screen_name}}">@{{user.screen_name}}</a> <a class="date" href="https://www.twitter.com/{{user.screen_name}}/status/{{id_str}}">April 4, 2015</a>
+
+          </p>
+
+          <p>{{text}}</p>
+        </div>
+
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="col-md-2">
+    <h4>Hashtags</h4>
+    <ul class="list-unstyled">
+      {{#each hashtags}}
+      <li><a href="#">{{this}}</a></li>
+      {{/each}}
+    </ul>
+
+    <h4>URLs</h4>
+    <ul class="list-unstyled">
+      {{#each urls}}
+        <li><a href="{{this}}">{{this}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
