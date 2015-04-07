@@ -2,7 +2,7 @@ var fs = require('fs');
 var handlebars = require('handlebars');
 
 var SearchModel = require('../models/search.js');
-var ResultsView = require('./results-view.js');
+var ResultsView = require('./results.js');
 
 module.exports = Backbone.View.extend({
   initialize: function() {

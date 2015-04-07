@@ -2,7 +2,8 @@ var fs = require('fs');
 var handlebars = require('handlebars');
 var parser = require('babyparse');
 var Search = require('../models/search.js');
-var TweetPreviewView = require('./tweet-preview.js')
+var ResultsListView = require('./results-list.js');
+var ResultsTableView = require('./results-table.js');
 
 module.exports = Backbone.View.extend({
   el: $('#results-container'),
@@ -17,7 +18,8 @@ module.exports = Backbone.View.extend({
     })
 
     // Initialize Sub View
-    this.tweetPreviewView = new TweetPreviewView();
+    this.resultsListView = new ResultsListView();
+    this.resultsTableView = new ResultsTableView();
 
     // Render on model change
     this.listenTo(this.model, 'change', this.render);
