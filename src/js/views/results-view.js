@@ -1,24 +1,23 @@
 var fs = require('fs');
 var handlebars = require('handlebars');
 var parser = require('babyparse');
+var Search = require('../models/search.js');
 
 module.exports = Backbone.View.extend({
   el: $('#results-container'),
 
-  initialize: function() {
+  initialize: function(options) {
     var self = this;
-    this.render();
+
+    // Initialize the Search model
+    this.model = new Search({ q: options.queryString });
+    this.model.fetch().done(function(){
+      self.render()
+    })
+
+    // Render on model change
+    this.listenTo(this.model, 'change', this.render);
   },
-
-  mockUrls: [
-    'http://t.co/XjunzuLCIU',
-    'http://t.co/XkbVWCIMDW',
-    'http://t.co/RiShZYH6ku'
-  ],
-
-  mockHashtags: [
-    '#YOLO', '#FOMO', '#EVOO'
-  ],
 
   template: function(data) {
     var templateFile = fs.readFileSync('src/templates/results-view.hbs', 'utf8'),
@@ -27,20 +26,48 @@ module.exports = Backbone.View.extend({
     return template(data);
   },
 
-  render: function (queryString, data) {
-    var csvData = parser.unparse(_.map(data));
+  render: function () {
+    // Hack, will be replaced by resultset
+    var csvData = parser.unparse(this.model.changed);
     var href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
 
+    // Render the HTML
     var html = this.template({
-      queryString: queryString,
-      hashtags: this.mockHashtags,
-      urls: this.mockUrls,
-      statuses: data,
-      href: href,
+      q: this.model.attributes.q,
+      statuses: this.model.changed,
+      hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
+      urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
     });
 
+    // Inject HTML into DOM
     this.$el.html(html);
+
     return this;
   }
+
+  /*
+   * Helpers
+   */
+
+  /*
+   * _entities: Returns a unique list of entity attributes
+   *
+   * tweets:    A JSON list of statuses
+   * entity:    Entity type (one of 'urls', 'hashtags', 'user_mentions'
+   * attribute: The attribute of the entity to collect
+   */
+  _entities: function(tweets, entity, attribute) {
+    var selectedEntity = _(tweets)
+      .map(function each (tweet) {
+        return tweet.entities;
+      })
+      .pluck(entity)
+      .flatten()
+      .pluck(attribute)
+      .uniq()
+      .value();
+
+    return selectedEntity;
+  },
 });
 

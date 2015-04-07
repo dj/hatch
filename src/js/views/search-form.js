@@ -30,6 +30,9 @@ module.exports = Backbone.View.extend({
     // TODO: clean up to prevent zombie views
     $('#results-container').empty();
 
+    // A list of pairs of
+    // string: a url query parameter + "="
+    // val: the value from the matching form input
     var params = [
       { string: 'q=', val: $('#query').val() },
       { string: 'lang=', val: $('#lang').val() },
@@ -37,7 +40,7 @@ module.exports = Backbone.View.extend({
       { string: 'until=', val: $('#until').val() }
     ]
 
-    // Reject empty parameters
+    // Returns a query string from the list of params
     var queryString = _.chain(params)
       .filter(function(param) { return param.val })
       // URI encode values
@@ -46,16 +49,9 @@ module.exports = Backbone.View.extend({
       .value()
       .join('&');
 
-    var search = new SearchModel();
-
-    search.fetch({
-      data: queryString,
-      success: function(data) {
-        var Results = new ResultsView();
-        Results.render(queryString, data.toJSON());
-      }
+    var results = new ResultsView({
+      queryString: queryString
     });
-
   }
 });
 
