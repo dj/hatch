@@ -23,6 +23,21 @@ module.exports = Backbone.View.extend({
 
   events: {
     "submit form": "search",
+    "click #save-advanced-search": "saveAdvancedSearch",
+  },
+
+  saveAdvancedSearch: function(e) {
+    console.log(e);
+    // Close modal
+    $('#advanced-search-modal').modal('hide');
+
+    // Get the form input
+    var all = $('#all-of-these-words').val();
+
+    var any = $('#any-of-these-words').val().split(',').join(' OR');
+
+    // Return query string
+    $('#query').val(all + ' ' + any);
   },
 
   search: function(e) {
