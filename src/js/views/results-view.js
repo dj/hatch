@@ -23,6 +23,18 @@ module.exports = Backbone.View.extend({
     this.listenTo(this.model, 'change', this.render);
   },
 
+  events: {
+    "change #results-subview": "changeSubview"
+  },
+
+  changeSubview: function(e) {
+    if (e.target.value == 'Table') {
+      // Empty the subview, render the table subview
+    } else {
+      // Empty the subview, render the tweet preview subview
+    }
+  },
+
   template: function(data) {
     var templateFile = fs.readFileSync('src/templates/results-view.hbs', 'utf8'),
         template = handlebars.compile(templateFile);
