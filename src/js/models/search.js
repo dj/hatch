@@ -1,8 +1,11 @@
 module.exports = Backbone.Model.extend({
-  defaults: {
-    data: {}
+  initialize: function(options) {
+    this.options = options;
   },
 
-  url: '/search'
+  url: function() {
+    return '/search?' + this.options.q;
+  }
+
 });
 
