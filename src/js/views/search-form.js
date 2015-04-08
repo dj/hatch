@@ -27,7 +27,6 @@ module.exports = Backbone.View.extend({
   },
 
   saveAdvancedSearch: function(e) {
-    console.log(e);
     // Close modal
     $('#advanced-search-modal').modal('hide');
 
@@ -36,11 +35,23 @@ module.exports = Backbone.View.extend({
 
     var any = $('#any-of-these-words').val().split(',').join(' OR');
 
-    var none = $('#none-of-these-words').val().split(',').join(' -');
+    var none = (function(){
+      // Array of words to ignore
+      var words = $('#none-of-these-words').val().split(',')
 
+      return _.map(words, function(word) {
+        // Remove whitespace, append - sign
+        return '-' + word.trim();
+      }).join(' ');
+    })()
 
-    // Return query string
-    $('#query').val(all + ' ' + any + ' ' + none );
+    var from = (function(){
+      var user = $('#from-this-user').val();
+      return 'from:' + user
+    })()
+
+    // Fill in the query form
+    $('#query').val([all, any, none, from].join(' '))
   },
 
   search: function(e) {
