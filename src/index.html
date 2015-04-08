@@ -8,6 +8,46 @@
     <link href="css/custom-bootstrap.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- Modal -->
+    <div id="advanced-search-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Advanced Search</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="all-of-these-words">All of these words:</label>
+              <input id="all-of-these-words"></input>
+            </div>
+
+            <div class="form-group">
+              <label for="any-of-these-words">Any of these words:</label>
+              <input id="any-of-these-words"></input>
+            </div>
+
+            <div class="form-group">
+              <label for="none-of-these-words">None of these words:</label>
+              <input id="none-of-these-words"></input>
+           </div>
+
+            <div class="form-group">
+              <label for="from-this-user">From this user:</label>
+              <input id="from-this-user"></input>
+           </div>
+
+         </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="save-advanced-search" type="button" class="btn btn-primary">Save search terms</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
 
     <!-- HEADER -->
     <nav class="navbar navbar-inverse">
