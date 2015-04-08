@@ -17,24 +17,20 @@ module.exports = Backbone.View.extend({
       self.render()
     })
 
-    // Initialize Sub View
-    this.resultsListView = new ResultsListView();
-    this.resultsTableView = new ResultsTableView();
-
     // Render on model change
     this.listenTo(this.model, 'change', this.render);
   },
 
   events: {
-    "change #results-subview": "changeSubview"
+    "click #results-table-pane-btn": "initTable",
   },
 
-  changeSubview: function(e) {
-    if (e.target.value == 'Table') {
-      // Empty the subview, render the table subview
-    } else {
-      // Empty the subview, render the tweet preview subview
-    }
+  initTable: function(e) {
+    // Init the results table with model attributes
+    $('#results-table').bootstrapTable({
+        // Convert model attributes from object to list of objects
+        data: _.map(this.model.changed)
+    });
   },
 
   template: function(data) {
