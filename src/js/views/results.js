@@ -48,7 +48,7 @@ module.exports = Backbone.View.extend({
     // Render the HTML
     var html = this.template({
       q: this.model.attributes.q,
-      statuses: this.model.changed,
+      statuses: _.map(this.model.changed),
       hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
       urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
     });
