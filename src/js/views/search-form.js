@@ -36,8 +36,11 @@ module.exports = Backbone.View.extend({
 
     var any = $('#any-of-these-words').val().split(',').join(' OR');
 
+    var none = $('#none-of-these-words').val().split(',').join(' -');
+
+
     // Return query string
-    $('#query').val(all + ' ' + any);
+    $('#query').val(all + ' ' + any + ' ' + none );
   },
 
   search: function(e) {
