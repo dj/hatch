@@ -11,7 +11,7 @@ module.exports = Backbone.View.extend({
   el: $('#login-form-container'),
 
   events: {
-    "submit": "login"
+    "click #sign-in": "login"
   },
 
   template: function() {
