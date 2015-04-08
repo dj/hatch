@@ -6,9 +6,11 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/custom-bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.6/css/jquery.dataTables.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.css">
   </head>
   <body>
-
     <!-- HEADER -->
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -20,7 +22,9 @@
     </nav>
 
     <!-- PAGE CONTENT -->
-    <div class="container-fluid">
+    <div id="page-content" class="container-fluid">
+      <div id="login-form-container"></div>
+
       <div class="row">
 
         <!-- LEFT COLUMN: SEARCH -->
@@ -29,7 +33,6 @@
 
         <!-- RIGHT COLUMN: RESULTS -->
         <div id="results-container" class="col-md-9">
-          <div id="login-form-container"></div>
         </div>
 
       </div><!-- /.row -->
@@ -37,7 +40,12 @@
 
     <script src="/js/vendor/lodash.min.js"></script>
     <script src="/js/vendor/jquery-1.11.2.js"></script>
+    <script src="/js/vendor/spin.min.js"></script>
     <script src="/js/vendor/backbone.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.js"></script>
+
     <script src="/js/bundle.js"></script>
   </body>
 </html>

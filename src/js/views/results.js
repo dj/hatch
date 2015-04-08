@@ -2,7 +2,8 @@ var fs = require('fs');
 var handlebars = require('handlebars');
 var parser = require('babyparse');
 var Search = require('../models/search.js');
-var TweetPreviewView = require('./tweet-preview.js')
+var ResultsListView = require('./results-list.js');
+var ResultsTableView = require('./results-table.js');
 
 module.exports = Backbone.View.extend({
   el: $('#results-container'),
@@ -16,23 +17,20 @@ module.exports = Backbone.View.extend({
       self.render()
     })
 
-    // Initialize Sub View
-    this.tweetPreviewView = new TweetPreviewView();
-
     // Render on model change
     this.listenTo(this.model, 'change', this.render);
   },
 
   events: {
-    "change #results-subview": "changeSubview"
+    "click #results-table-pane-btn": "initTable",
   },
 
-  changeSubview: function(e) {
-    if (e.target.value == 'Table') {
-      // Empty the subview, render the table subview
-    } else {
-      // Empty the subview, render the tweet preview subview
-    }
+  initTable: function(e) {
+    // Init the results table with model attributes
+    $('#results-table').bootstrapTable({
+        // Convert model attributes from object to list of objects
+        data: _.map(this.model.changed)
+    });
   },
 
   template: function(data) {
@@ -50,7 +48,7 @@ module.exports = Backbone.View.extend({
     // Render the HTML
     var html = this.template({
       q: this.model.attributes.q,
-      statuses: this.model.changed,
+      statuses: _.map(this.model.changed),
       hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
       urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
     });

@@ -3,85 +3,97 @@
     <h3>
       <span class="glyphicon glyphicon-list"></span>
       <span>{{statuses.length}} Tweets</span>
-      <a href={{href}} class='btn btn-success pull-right'>
+      <a href="{{href}}" class="btn btn-success">
         <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Save CSV
       </a>
     </h3>
-    <p>Showing {{statuses.length}} results for <a href="#">{{queryString}}</a></p>
+    <p>Showing {{statuses.length}} results for <a href="https://twitter.com/search?{{q}}">{{q}}</a></p>
   </div>
 </div>
 
-<div class="row">
+<div class="row" role="tabpanel">
+  <div class="col-md-10">
 
-  <div class="col-md-6">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#results-list-pane" aria-controls="results-list-pane" role="tab" data-toggle="tab">Results List</a></li>
+      <li role="presentation"><a id="results-table-pane-btn" href="#results-table-pane" aria-controls="results-table-pane" role="tab" data-toggle="tab">Results Table</a></li>
+    </ul>
 
-    <div class="btn-group">
-      <label>Results View</label>
-      <select id="results-subview">
-        <option>Tweets</option>
-        <option>Table</option>
-      </select>
-    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="results-list-pane">
+        <div class="row">
 
-  </div>
+          <div class="col-md-6">
+            {{#each statuses}}
+              <div class="twitter-tweet-container">
 
-</div>
+                <img src={{user.profile_image_url}} />
 
-<div class="row">
+                <div class="twitter-tweet">
+                  <p>
 
-  <div class="col-md-6">
+                    <span class="user-name">{{user.name}}</span> <a href="https://twitter.com/{{@user.screen_name}}">@{{user.screen_name}}</a> <a class="date" href="https://www.twitter.com/{{user.screen_name}}/status/{{id_str}}">April 4, 2015</a>
 
-    <div class="btn-group">
-      <label>Sort by</label>
-      <select>
-        <option>Date</option>
-        <option>RTs</option>
-        <option>Favs</option>
-        <option>Username</option>
-      </select>
-    </div>
+                  </p>
 
-  </div>
+                  <p>{{text}}</p>
+                </div>
 
-</div>
+              </div>
+            {{/each}}
+          </div>
 
-</div>
+          <div class="col-md-3">
+            <h4>Hashtags</h4>
+            <ul class="list-unstyled list-inline">
+              {{#each hashtags}}
+              <li><a href="https://twitter.com/hashtag/{{this}}">#{{this}}</a></li>
+              {{/each}}
+            </ul>
 
-<div class="row">
-  <div class="col-md-6">
-    {{#each statuses}}
-      <div class="twitter-tweet-container">
+            <h4>URLs</h4>
+            <ul class="list-unstyled">
+              {{#each urls}}
+                <li><a href="{{this}}">{{this}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
 
-        <img src={{user.profile_image_url}} />
-
-        <div class="twitter-tweet">
-          <p>
-
-            <span class="user-name">{{user.name}}</span> <a href="https://twitter.com/{{@user.screen_name}}">@{{user.screen_name}}</a> <a class="date" href="https://www.twitter.com/{{user.screen_name}}/status/{{id_str}}">April 4, 2015</a>
-
-          </p>
-
-          <p>{{text}}</p>
         </div>
-
       </div>
-    {{/each}}
+
+      <div role="tabpanel" class="tab-pane" id="results-table-pane">
+        <table id="results-table" class="display">
+          <thead>
+            <tr>
+              <!-- <th data-field="coordinates">Coordinates</th> -->
+              <th data-field="favorited" data-sortable="true">Favorited</th>
+              <th data-field="truncated" data-sortable="true">Trucated</th>
+              <th data-field="created_at" data-sortable="true">Created At</th>
+              <!-- <th data-field="entities" data-sortable="true">Entities</th> -->
+              <th data-field="contributors" data-sortable="true">Contributors</th>
+              <th data-field="text" data-sortable="true">Text</th>
+              <th data-field="retweet_count" data-sortable="true">RT count</th>
+              <th data-field="in_reply_to_status_id" data-sortable="true">In Reply To Status ID</th>
+              <th data-field="id" data-sortable="true">ID</th>
+              <!-- <th data-field="geo" data-sortable="true">geo</th> -->
+              <th data-field="retweeted" data-sortable="true">retweeted</th>
+              <th data-field="in_reply_to_user_id" data-sortable="true">In Reply To User ID</th>
+              <th data-field="place" data-sortable="true">Place</th>
+              <th data-field="in_reply_to_screen_name" data-sortable="true">In Reply To Screen Name</th>
+              <th data-field="source" data-sortable="true">Source</th>
+              <th data-field="in_reply_to_status_id" data-sortable="true">In Reply To Status ID</th>
+            </tr>
+          </thead>
+        </table>
+      <div>
+
+    </div>
   </div>
 
-  <div class="col-md-3">
-    <h4>Hashtags</h4>
-    <ul class="list-unstyled list-inline">
-      {{#each hashtags}}
-      <li><a href="#">#{{this}}</a></li>
-      {{/each}}
-    </ul>
-
-    <h4>URLs</h4>
-    <ul class="list-unstyled">
-      {{#each urls}}
-        <li><a href="{{this}}">{{this}}</a></li>
-      {{/each}}
-    </ul>
-  </div>
 </div>
+
+
 
