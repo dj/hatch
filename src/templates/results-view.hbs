@@ -12,12 +12,12 @@
 </div>
 
 <div class="row" role="tabpanel">
-  <div class="col-md-12">
+  <div class="col-md-10">
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#results-list-pane" aria-controls="results-list-pane" role="tab" data-toggle="tab">Results List</a></li>
-      <li role="presentation"><a href="#results-table-pane" aria-controls="results-table-pane" role="tab" data-toggle="tab">Results Table</a></li>
+      <li role="presentation"><a id="results-table-pane-btn" href="#results-table-pane" aria-controls="results-table-pane" role="tab" data-toggle="tab">Results Table</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -65,8 +65,31 @@
       </div>
 
       <div role="tabpanel" class="tab-pane" id="results-table-pane">
-        <p>yoloworld</p>
+        <table id="results-table" class="display">
+          <thead>
+            <tr>
+              <!-- <th data-field="coordinates">Coordinates</th> -->
+              <th data-field="favorited">Favorited</th>
+              <th data-field="truncated">Trucated</th>
+              <th data-field="created_at">Created At</th>
+              <!-- <th data-field="entities">Entities</th> -->
+              <th data-field="contributors">Contributors</th>
+              <th data-field="text">Text</th>
+              <th data-field="retweet_count">RT count</th>
+              <th data-field="in_reply_to_status_id">In Reply To Status ID</th>
+              <th data-field="id">ID</th>
+              <!-- <th data-field="geo">geo</th> -->
+              <th data-field="retweeted">retweeted</th>
+              <th data-field="in_reply_to_user_id">In Reply To User ID</th>
+              <th data-field="place">Place</th>
+              <th data-field="in_reply_to_screen_name">In Reply To Screen Name</th>
+              <th data-field="source">Source</th>
+              <th data-field="in_reply_to_status_id">In Reply To Status ID</th>
+            </tr>
+          </thead>
+        </table>
       <div>
+
     </div>
   </div>
 
