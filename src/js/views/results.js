@@ -26,10 +26,9 @@ module.exports = Backbone.View.extend({
   },
 
   initTable: function(e) {
-    console.log('init table!')
-    console.log(_.map(this.model.changed))
-
+    // Init the results table with model attributes
     $('#results-table').bootstrapTable({
+        // Convert model attributes from object to list of objects
         data: _.map(this.model.changed)
     });
   },
