@@ -4,7 +4,10 @@
   <!-- QUERY -->
   <div class="form-group">
     <label for="query">Search Terms</label>
-    <input type="text" class="form-control" id="query" placeholder="Search..." required>
+    <input type="text" class="form-control" id="query" placeholder="Search..."
+           required placeholder="Search..." required
+           data-toggle="popover" data-trigger="hover" data-placement="bottom"
+           data-content="Search for Twitter key terms or hashtags">
 
     <!-- Button trigger modal -->
     <a data-toggle="modal" data-target="#advanced-search-modal">
@@ -57,7 +60,8 @@
   <!-- TODO: populate with complete list of languages -->
   <div class="form-group">
     <label for="lang">Language</label>
-    <select class="form-control" id="lang">
+    <select class="form-control" id="lang" data-toggle="popover" data-trigger="hover"
+    data-placement="bottom" data-content="Filter Tweets by Language">
       <option>en</option>
       <option>es</option>
       <option>jp</option>
@@ -67,7 +71,8 @@
   <!-- RESULT TYPE -->
   <div class="form-group">
     <label for="result-type">Result Type</label>
-    <select class="form-control" id="result-type">
+    <select class="form-control" id="result-type" data-toggle="popover" data-trigger="hover"
+    data-placement="bottom" data-content="Choose which result type you prefer to see">
       <option>mixed</option>
       <option>recent</option>
       <option>popular</option>
@@ -80,7 +85,9 @@
       <label for="date-picker">Show only Tweets until</label>
       <!-- <span class="add-on">From</span> -->
       <!-- <input id="after" type="date" class="input-small" placeholder="YYYY-MM-DD" /> -->
-      <input id="until" type="date" class="input-small" value="YYYY-MM-DD" />
+      <input id="until" type="date" class="input-small" value="YYYY-MM-DD"
+      data-toggle="popover" data-trigger="hover"
+    data-placement="bottom" data-content="Choose a date to search until"/>
     </div>
   </div>
 

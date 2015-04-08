@@ -19,7 +19,13 @@ module.exports = Backbone.View.extend({
   render: function(data) {
     var html = this.template()
     this.$el.append(html);
+    $('#query').popover();
+    $('#lang').popover();
+     $('#result_type').popover();
+      $('#until').popover();
   },
+
+  
 
   events: {
     "submit form": "search",
@@ -87,6 +93,7 @@ module.exports = Backbone.View.extend({
 
     // Loading Spinner
     this.initSpinner();
+
 
     // A list of pairs of
     // string: a url query parameter + "="
