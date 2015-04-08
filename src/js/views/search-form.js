@@ -19,7 +19,13 @@ module.exports = Backbone.View.extend({
   render: function(data) {
     var html = this.template()
     this.$el.append(html);
+    $('#query').popover();
+    $('#lang').popover();
+     $('#result_type').popover();
+      $('#until').popover();
   },
+
+  
 
   events: {
     "submit form": "search",
@@ -29,6 +35,7 @@ module.exports = Backbone.View.extend({
     e.preventDefault();
     // TODO: clean up to prevent zombie views
     $('#results-container').empty();
+
 
     // A list of pairs of
     // string: a url query parameter + "="
