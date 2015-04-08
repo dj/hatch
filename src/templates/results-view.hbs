@@ -11,77 +11,66 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" role="tabpanel">
+  <div class="col-md-12">
 
-  <div class="col-md-6">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#results-list-pane" aria-controls="results-list-pane" role="tab" data-toggle="tab">Results List</a></li>
+      <li role="presentation"><a href="#results-table-pane" aria-controls="results-table-pane" role="tab" data-toggle="tab">Results Table</a></li>
+    </ul>
 
-    <div class="btn-group">
-      <label>Results View</label>
-      <select id="results-subview">
-        <option>Tweets</option>
-        <option>Table</option>
-      </select>
-    </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="results-list-pane">
+        <div class="row">
 
-  </div>
+          <div class="col-md-6">
+            {{#each statuses}}
+              <div class="twitter-tweet-container">
 
-</div>
+                <img src={{user.profile_image_url}} />
 
-<div class="row">
+                <div class="twitter-tweet">
+                  <p>
 
-  <div class="col-md-6">
+                    <span class="user-name">{{user.name}}</span> <a href="https://twitter.com/{{@user.screen_name}}">@{{user.screen_name}}</a> <a class="date" href="https://www.twitter.com/{{user.screen_name}}/status/{{id_str}}">April 4, 2015</a>
 
-    <div class="btn-group">
-      <label>Sort by</label>
-      <select>
-        <option>Date</option>
-        <option>RTs</option>
-        <option>Favs</option>
-        <option>Username</option>
-      </select>
-    </div>
+                  </p>
 
-  </div>
+                  <p>{{text}}</p>
+                </div>
 
-</div>
+              </div>
+            {{/each}}
+          </div>
 
-</div>
+          <div class="col-md-3">
+            <h4>Hashtags</h4>
+            <ul class="list-unstyled list-inline">
+              {{#each hashtags}}
+              <li><a href="#">#{{this}}</a></li>
+              {{/each}}
+            </ul>
 
-<div class="row">
-  <div class="col-md-6">
-    {{#each statuses}}
-      <div class="twitter-tweet-container">
+            <h4>URLs</h4>
+            <ul class="list-unstyled">
+              {{#each urls}}
+                <li><a href="{{this}}">{{this}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
 
-        <img src={{user.profile_image_url}} />
-
-        <div class="twitter-tweet">
-          <p>
-
-            <span class="user-name">{{user.name}}</span> <a href="https://twitter.com/{{@user.screen_name}}">@{{user.screen_name}}</a> <a class="date" href="https://www.twitter.com/{{user.screen_name}}/status/{{id_str}}">April 4, 2015</a>
-
-          </p>
-
-          <p>{{text}}</p>
         </div>
-
       </div>
-    {{/each}}
+
+      <div role="tabpanel" class="tab-pane" id="results-table-pane">
+        <p>yoloworld</p>
+      <div>
+    </div>
   </div>
 
-  <div class="col-md-3">
-    <h4>Hashtags</h4>
-    <ul class="list-unstyled list-inline">
-      {{#each hashtags}}
-      <li><a href="#">#{{this}}</a></li>
-      {{/each}}
-    </ul>
-
-    <h4>URLs</h4>
-    <ul class="list-unstyled">
-      {{#each urls}}
-        <li><a href="{{this}}">{{this}}</a></li>
-      {{/each}}
-    </ul>
-  </div>
 </div>
+
+
 
