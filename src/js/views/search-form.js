@@ -23,6 +23,35 @@ module.exports = Backbone.View.extend({
 
   events: {
     "submit form": "search",
+    "click #save-advanced-search": "saveAdvancedSearch",
+  },
+
+  saveAdvancedSearch: function(e) {
+    // Close modal
+    $('#advanced-search-modal').modal('hide');
+
+    // Get the form input
+    var all = $('#all-of-these-words').val();
+
+    var any = $('#any-of-these-words').val().split(',').join(' OR');
+
+    var none = (function(){
+      // Array of words to ignore
+      var words = $('#none-of-these-words').val().split(',')
+
+      return _.map(words, function(word) {
+        // Remove whitespace, append - sign
+        return '-' + word.trim();
+      }).join(' ');
+    })()
+
+    var from = (function(){
+      var user = $('#from-this-user').val();
+      return 'from:' + user
+    })()
+
+    // Fill in the query form
+    $('#query').val([all, any, none, from].join(' '))
   },
 
   search: function(e) {
