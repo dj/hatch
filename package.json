@@ -2,6 +2,7 @@
   "name": "hatch-client",
   "version": "0.0.0",
   "description": "Hatch - Client",
+  "repository": "https://github.com/dj/hatch",
   "dependencies": {
     "babyparse": "^0.4.1",
     "handlebars": "^3.0.0",
