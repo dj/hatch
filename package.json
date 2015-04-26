@@ -6,7 +6,10 @@
   "dependencies": {
     "babyparse": "^0.4.1",
     "handlebars": "^3.0.0",
-    "watchify": "^2.4.0"
+    "watchify": "^2.4.0",
+    "esprima-fb": "3001.1.0-dev-harmony-fb",
+    "escodegen": "^0"
+
   },
   "devDependencies": {
     "bootstrap": "^3.3.2",
