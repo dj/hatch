@@ -41,16 +41,13 @@ module.exports = Backbone.View.extend({
   },
 
   render: function () {
-    // Hack, will be replaced by resultset
-    var csvData = parser.unparse(this.model.changed);
-    var href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
-
     // Render the HTML
     var html = this.template({
       q: this.model.attributes.q,
       statuses: _.map(this.model.changed),
-      hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
-      urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
+      hashtags: this._topEntities(this.model.changed, 'hashtags', 'text'),
+      urls: this._topEntities(this.model.changed, 'urls', 'expanded_url'),
+      href: '/api/search.csv?' + this.model.attributes.q
     });
 
     // Inject HTML into DOM
