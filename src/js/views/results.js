@@ -41,9 +41,7 @@ module.exports = Backbone.View.extend({
   },
 
   render: function () {
-    // Hack, will be replaced by resultset
-    var csvData = parser.unparse(this.model.changed);
-    var href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvData);
+    var csvHref = "api/search.csv?" + this.model.get("q");
 
     // Render the HTML
     var html = this.template({
@@ -51,6 +49,7 @@ module.exports = Backbone.View.extend({
       statuses: _.map(this.model.changed),
       hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
       urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
+      csvHref: csvHref
     });
 
     // Inject HTML into DOM
