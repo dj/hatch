@@ -13,8 +13,12 @@ module.exports = Backbone.View.extend({
 
     // Initialize the Search model
     this.model = new Search({ q: options.queryString });
-    this.model.fetch().done(function(){
-      self.render()
+    this.model.fetch({
+      success: function(model, response, options) { return self.render() },
+      error: function(model, response, options) {
+        $('.alert').removeClass('hidden')
+        $('#err-msg').text(response.statusText)
+      }
     })
 
     // Render on model change
