@@ -99,7 +99,8 @@ module.exports = Backbone.View.extend({
       { string: 'q=', val: $('#query').val() },
       { string: 'lang=', val: $('#lang').val() },
       { string: 'result_type=', val: $('#result_type').val() },
-      { string: 'until=', val: $('#until').val() }
+      { string: 'until=', val: $('#until').val() },
+      { string: 'max_results=', val: $('#max-results').val().toString() }
     ]
 
     // Returns a query string from the list of params
