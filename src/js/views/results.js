@@ -48,7 +48,8 @@ module.exports = Backbone.View.extend({
     // Render the HTML
     var html = this.template({
       q: this.model.attributes.q,
-      statuses: _.map(this.model.changed),
+      total: this.model.changed.length,
+      statuses: _.take(_.map(this.model.changed), 10),
       hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
       urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
       href: '/api/search.csv?' + this.model.attributes.q
@@ -95,6 +96,7 @@ module.exports = Backbone.View.extend({
   },
 });
 
+// Truncate url strings
 handlebars.registerHelper ('truncate', function (str, len) {
   if (str.length > len) {
     var new_str = str.substr (0, len+1);
