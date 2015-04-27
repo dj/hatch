@@ -45,18 +45,18 @@
             {{/each}}
           </div>
 
-          <div class="col-md-3">
-            <h4>Hashtags</h4>
-            <ul class="list-unstyled list-inline">
+          <div class="col-md-6">
+            <h4>Top Hashtags</h4>
+            <ol class="list-unstyled">
               {{#each hashtags}}
-              <li><a href="https://twitter.com/hashtag/{{this}}">#{{this}}</a></li>
+              <li><span class="badge alert-info">{{this.count}}</span><a href="https://twitter.com/hashtag/{{this.val}}"> #{{this.val}}</a></li>
               {{/each}}
-            </ul>
+            </ol>
 
-            <h4>URLs</h4>
+            <h4>Top URLs</h4>
             <ul class="list-unstyled">
               {{#each urls}}
-                <li><a href="{{this}}">{{this}}</a></li>
+              <li><span class="badge alert-info">{{this.count}}</span><a href="{{this.val}}"> {{truncate this.val 16}}</a></li>
               {{/each}}
             </ul>
           </div>
