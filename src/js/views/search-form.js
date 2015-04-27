@@ -25,8 +25,6 @@ module.exports = Backbone.View.extend({
       $('#until').popover();
   },
 
-  
-
   events: {
     "submit form": "search",
     "click #save-advanced-search": "saveAdvancedSearch",
@@ -93,7 +91,6 @@ module.exports = Backbone.View.extend({
 
     // Loading Spinner
     this.initSpinner();
-
 
     // A list of pairs of
     // string: a url query parameter + "="
