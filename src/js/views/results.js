@@ -49,8 +49,8 @@ module.exports = Backbone.View.extend({
     var html = this.template({
       q: this.model.attributes.q,
       statuses: _.map(this.model.changed),
-      hashtags: this._topEntities(this.model.changed, 'hashtags', 'text'),
-      urls: this._topEntities(this.model.changed, 'urls', 'expanded_url'),
+      hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
+      urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
       href: '/api/search.csv?' + this.model.attributes.q
     });
 
@@ -78,11 +78,42 @@ module.exports = Backbone.View.extend({
       })
       .pluck(entity)
       .flatten()
-      .pluck(attribute)
-      .uniq()
+      .countBy(attribute)
+      .pairs()
+      .map(function each(entity) {
+        return {
+          val: entity[0],
+          count: entity[1]
+        }
+      })
+      .sortBy('count')
+      .reverse()
+      .take(10)
       .value();
 
     return selectedEntity;
   },
+});
+
+handlebars.registerHelper ('truncate', function (str, len) {
+  if (str.length > len) {
+    var new_str = str.substr (0, len+1);
+
+    while (new_str.length) {
+      var ch = new_str.substr ( -1 );
+      new_str = new_str.substr ( 0, -1 );
+
+      if (ch == ' ') {
+        break;
+      }
+    }
+
+    if ( new_str == '' ) {
+      new_str = str.substr ( 0, len );
+    }
+
+    return new handlebars.SafeString ( new_str +'...' );
+  }
+  return str;
 });
 
