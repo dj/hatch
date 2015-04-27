@@ -10,10 +10,6 @@ var watch = require('gulp-watch');
 var less = require('gulp-less');
 var path = require('path');
 
-// Browserify
-var bundler = browserify('./src/js/main.js', watchify.args);
-bundler.transform('brfs'); // implements node's fs.readFileSync for browserify
-
 // Asset locations
 var not_tests = '!src/test/**';
 var html_files = 'src/**/*.html';
@@ -29,20 +25,39 @@ var less_files = './src/less/**/*.less';
 
 // Tasks
 gulp.task('default', ['watch']);
-gulp.task('js', bundle);
 gulp.task('copy', copyFiles);
 gulp.task('fonts', copyFonts);
 gulp.task('vendor', copyVendoredLibs);
-gulp.task('build', ['copy', 'less', 'fonts', 'vendor', 'js'], function () { return;});
+gulp.task('build', ['copy', 'less', 'fonts', 'vendor', 'browserify'], function () { return;});
+gulp.task('browserify', function(){
+  var watch = false;
 
-function bundle() {
-  return bundler.bundle()
+  bundle({ watch: false });
+});
+gulp.task('browserify-watch', function(){
+  watch = true;
+  bundle({ watch: true });
+});
+
+function bundle(opts) {
+  var bundler = browserify('./src/js/main.js', watchify.args);
+  bundler.transform('brfs'); // implements node's fs.readFileSync for browserify
+
+  if (opts.watch) {
+    var bundler = watchify(bundler)
+
+    bundler.on('update', function(b) {
+      bundleShare(bundler)
+    })
+  }
+
+  return bundleShare(bundler);
+}
+
+function bundleShare(b) {
+  b.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('js/bundle.js'))
-      // TODO
-      // .pipe(buffer())
-      // .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-      // .pipe(sourcemaps.write({sourceRoot: 'src/'))
     .pipe(gulp.dest('./build'));
 }
 
@@ -56,10 +71,7 @@ gulp.task('less', function() {
     .pipe(gulp.dest('./build/css'));
 })
 
-gulp.task('watch', ['less', 'copy', 'vendor', 'fonts', 'js'], function () {
-  var watched_bundler = watchify(bundler);
-  watched_bundler.on('update', bundle); // on any dep update, runs the bundler
-
+gulp.task('watch', ['less', 'copy', 'vendor', 'fonts', 'browserify-watch'], function () {
   gulp.watch(less_files, ['less']);
   gulp.watch(files, ['copy']);
   gulp.watch(libs, ['vendor']);
