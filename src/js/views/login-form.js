@@ -7,11 +7,16 @@ Backbone.$ = $;
 module.exports = Backbone.View.extend({
   initialize: function() {
     this.render();
+    // yolo
+    var self = this;
+    $( "#loginModal" ).bind( "click", function() {
+      self.login();
+    });
   },
   el: $('#login-form-container'),
 
   events: {
-    "click #sign-in": "login"
+    "click #loginModal": "login"
   },
 
   template: function() {
@@ -20,7 +25,6 @@ module.exports = Backbone.View.extend({
   },
 
   login: function(e) {
-    e.preventDefault();
     $(location).attr('href','http://localhost:8080/api/oauth');
   },
 

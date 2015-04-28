@@ -52,7 +52,7 @@ module.exports = Backbone.View.extend({
       statuses: _.take(_.map(this.model.changed), 10),
       hashtags: this._entities(this.model.changed, 'hashtags', 'text'),
       urls: this._entities(this.model.changed, 'urls', 'expanded_url'),
-      href: "api/search.csv?" + this.model.get("q");
+      href: "api/search.csv?" + this.model.get("q")
     });
 
     // Inject HTML into DOM
