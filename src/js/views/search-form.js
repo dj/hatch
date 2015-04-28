@@ -108,7 +108,6 @@ module.exports = Backbone.View.extend({
       .filter(function(param) { return param.val })
       // URI encode values
       .map(function(param) { return param.string + encodeURIComponent(param.val) })
-      .map(_.escape)
       .value()
       .join('&');
 

@@ -2,12 +2,12 @@
   <div class="col-md-6">
     <h3>
       <span class="glyphicon glyphicon-list"></span>
-      <span>{{statuses.length}} Tweets</span>
-      <a href="{{csvHref}}" class="btn btn-success">
+      <span>{{total}} Tweets</span>
+      <a href="{{href}}" class="btn btn-success">
         <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Save CSV
       </a>
     </h3>
-    <p>Showing {{statuses.length}} results for <a href="https://twitter.com/search?{{q}}">{{q}}</a></p>
+    <p><a href="https://twitter.com/search?{{q}}">{{q}}</a></p>
   </div>
 </div>
 
@@ -16,8 +16,8 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#results-list-pane" aria-controls="results-list-pane" role="tab" data-toggle="tab">Results List</a></li>
-      <li role="presentation"><a id="results-table-pane-btn" href="#results-table-pane" aria-controls="results-table-pane" role="tab" data-toggle="tab">Results Table</a></li>
+      <li role="presentation" class="active"><a href="#results-list-pane" aria-controls="results-list-pane" role="tab" data-toggle="tab">List</a></li>
+      <li role="presentation"><a id="results-table-pane-btn" href="#results-table-pane" aria-controls="results-table-pane" role="tab" data-toggle="tab">Table</a></li>
     </ul>
 
     <!-- Tab panes -->
