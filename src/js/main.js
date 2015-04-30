@@ -13,6 +13,7 @@ var User = require('./models/user.js');
 // Views
 var SearchFormView = require('./views/search-form.js');
 var LoginFormView = require('./views/login-form.js');
+var HeaderView = require('./views/header.js')
 
 var Router = Backbone.Router.extend({
   routes: {
@@ -22,13 +23,14 @@ var Router = Backbone.Router.extend({
   searchFormView: null,
   resultsTableView: null,
   loginFormView: null,
+  headerView: new HeaderView(),
 
   initialize: function() {
     var self = this;
 
     this.on('route:home', function() {
-      this.currentUser = new User();
-      this.currentUser.fetch({
+      self.currentUser = new User();
+      self.currentUser.fetch({
         success: function(user) {
           self.searchFormView = new SearchFormView();
         },

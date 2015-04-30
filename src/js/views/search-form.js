@@ -21,8 +21,8 @@ module.exports = Backbone.View.extend({
     this.$el.append(html);
     $('#query').popover();
     $('#lang').popover();
-     $('#result_type').popover();
-      $('#until').popover();
+    $('#result_type').popover();
+    $('#until').popover();
   },
 
   events: {
